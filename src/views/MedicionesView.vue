@@ -1,27 +1,29 @@
 <template>
-    <h1>Mediciones</h1>
-    <table class="zigzag">
-        <thead>
-            <tr>
-                <th class="header">#</th>
-                <th class="header">Sensor</th>
-                <th class="header">Valor</th>
-                <th class="header">Fecha</th>
-                <th class="header"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(item, index) in mediciones" :key="index">
-                <th>{{item.id}}</th>
-                <td>{{item.sensor}}</td>
-                <td>{{item.valor}}</td>
-                <td>{{ $dayjs(item.createdAt).format('MMM D, YYYY h:mm A')}}</td>
-                <td>
-                    <button @click="eliminarMedicion(item.id)">Eliminar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <h1>Mediciones</h1>
+        <table class="zigzag">
+            <thead>
+                <tr>
+                    <th class="header">#</th>
+                    <th class="header">Sensor</th>
+                    <th class="header">Valor</th>
+                    <th class="header">Fecha</th>
+                    <th class="header"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in mediciones" :key="index">
+                    <td>{{item.id}}</td>
+                    <td>{{item.sensor}}</td>
+                    <td>{{item.valor}}</td>
+                    <td>{{ $dayjs(item.createdAt).format('MMM D, YYYY h:mm A')}}</td>
+                    <td>
+                        <button @click="eliminarMedicion(item.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
 
 <script>
@@ -59,12 +61,20 @@ export default {
 };
 </script>
 <style scoped>
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 h1 {
     text-align: start;
 }
 
 table {
     font-family: sans-serif;
+    width: fit-content;
 }
 
 th,
