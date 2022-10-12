@@ -28,8 +28,20 @@
 
 <script>
 export default {
+
     data() {
         return {
+
+            /* 
+                medicion: {
+                    id
+                    sensor
+                    valor
+                    createdAt
+                    updatedAt
+                }
+            */
+
             mediciones: [],
         };
     },
@@ -37,7 +49,8 @@ export default {
         this.listarMediciones();
     },
     methods: {
-        listarMediciones() {
+
+        listarMediciones() { // cargar las mediciones en el array 
             this.axios.get('mediciones')
                 .then((response) => {
                     // console.log(response.data)
@@ -47,7 +60,9 @@ export default {
                     console.log('error' + e);
                 })
         },
-        eliminarMedicion(id) {
+
+        
+        eliminarMedicion(id) { //id medicion a eliminar 
             this.axios.delete('mediciones/' + id)
                 .then((response) => {
                     console.log(response.data)
@@ -61,7 +76,6 @@ export default {
 };
 </script>
 <style scoped>
-
 .container {
     display: flex;
     flex-direction: column;
