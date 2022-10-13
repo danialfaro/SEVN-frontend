@@ -26,31 +26,46 @@
     </div>
 </template>
 
-<script>
+<script >
+
 export default {
 
     data() {
         return {
 
-            /* 
-                medicion: {
-                    id
-                    sensor
-                    valor
-                    createdAt
-                    updatedAt
-                }
-            */
-
+            //medicion: { id, sensor, valor, createdAt, updatedAt }
             mediciones: [],
         };
     },
+    // callbacks que se ejecutan cuando se emite un evento desde el servidor
+    sockets: {
+
+        //cuando se conecta al servidor
+        connect() {
+            console.log('socket connected')
+        },
+
+        //cuando se crea una nueva medicion en el servidor
+        nuevaMedicion(val) {
+            console.log('this method was fired by the socket server: io.emit("nuevaMedicion", data)', val)
+            this.mediciones.push(val)
+        }
+
+    },
+    //se ejecuta cuando se crea el componente
     created() {
+        console.log("MedicionesView : created")
         this.listarMediciones();
+    },
+    //se ejecuta despues de que se ha creado el componente
+    mounted() {
+        console.log("MedicionesView : mounted")
+        this.$socket.connect()
     },
     methods: {
 
-        listarMediciones() { // cargar las mediciones en el array 
+        // manda una peticion GET para cargar todas las mediciones en el array 
+        listarMediciones() {
             this.axios.get('mediciones')
                 .then((response) => {
                     // console.log(response.data)
@@ -59,10 +74,12 @@ export default {
                 .catch((e) => {
                     console.log('error' + e);
                 })
+
         },
 
-        
-        eliminarMedicion(id) { //id medicion a eliminar 
+        //manda una peticion POST para eliminar una medicion 
+        // id: id de la medicion)
+        eliminarMedicion(id) {
             this.axios.delete('mediciones/' + id)
                 .then((response) => {
                     console.log(response.data)
@@ -72,14 +89,19 @@ export default {
                     console.log('error' + e);
                 })
         }
-    }
+    },
+    //se ejecuta despues de que se ha destruido el componente
+    unmounted() {
+        console.log("MedicionesView : unmounted")
+        this.$socket.disconnect()
+    },
 };
 </script>
 <style scoped>
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /*align-items: center;*/
 }
 
 h1 {
