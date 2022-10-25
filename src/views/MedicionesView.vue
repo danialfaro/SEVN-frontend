@@ -7,6 +7,8 @@
                     <th class="header">#</th>
                     <th class="header">Sensor</th>
                     <th class="header">Valor</th>
+                    <th class="header">Latitud</th>
+                    <th class="header">Longitud</th>
                     <th class="header">Fecha</th>
                     <th class="header"></th>
                 </tr>
@@ -16,6 +18,8 @@
                     <td>{{item.id}}</td>
                     <td>{{item.sensor}}</td>
                     <td>{{item.valor}}</td>
+                    <td>{{item.lat}}</td>
+                    <td>{{item.lon}}</td>
                     <td>{{ $dayjs(item.createdAt).format('MMM D, YYYY h:mm A')}}</td>
                     <td>
                         <button @click="eliminarMedicion(item.id)">Eliminar</button>
@@ -33,7 +37,7 @@ export default {
     data() {
         return {
 
-            //medicion: { id, sensor, valor, createdAt, updatedAt }
+            //medicion: { id, sensor, valor, lat, lon, createdAt, updatedAt }
             mediciones: [],
         };
     },
@@ -46,9 +50,9 @@ export default {
         },
 
         //cuando se crea una nueva medicion en el servidor
-        nuevaMedicion(val) {
-            console.log('this method was fired by the socket server: io.emit("nuevaMedicion", data)', val)
-            this.mediciones.push(val)
+        nuevaMedicion(medicion) {
+            console.log('this method was fired by the socket server: io.emit("nuevaMedicion", data)', medicion)
+            this.mediciones.push(medicion)
         }
 
     },
