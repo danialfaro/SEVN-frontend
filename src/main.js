@@ -11,11 +11,15 @@ import dayjs from 'dayjs'
 import VueSocketIO from 'vue-3-socket.io'
 import SocketIO from 'socket.io-client'
 
+import { createPinia } from 'pinia'
+
 // Agregamos la URL base de nuestra API
 axios.defaults.baseURL = 'http://localhost:3000/api';
 
+const pinia = createPinia()
 const app = createApp(App)
 app.use(router)
+app.use(pinia) //pinia stores
 app.use(new VueSocketIO({
     debug: true,
     connection: SocketIO('http://localhost:3000/')

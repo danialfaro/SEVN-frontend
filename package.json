@@ -13,6 +13,7 @@
     "dayjs": "^1.11.6",
     "element-plus": "^2.2.19",
     "flowbite": "^1.5.3",
+    "pinia": "^2.0.23",
     "socket.io-client": "^4.5.3",
     "vue": "^3.2.41",
     "vue-3-socket.io": "^1.0.5",
